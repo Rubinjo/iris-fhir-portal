@@ -12,6 +12,12 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 </Routes>
 }
 
+ClassMethod Test() As %Status
+{
+    set a=42
+    return "It works!"
+}
+
 ClassMethod getPatient(pPatientId) As %Status
 {
     Set %response.ContentType = "application/json"
@@ -24,7 +30,7 @@ ClassMethod getPatient(pPatientId) As %Status
 
         Set oRS = ##class(%SQL.Statement).%New()
 
-        Set sql = "SELECT %external(name) as name, birthdate FROM HSFHIR_I0001_S.Patient WHERE _id = "_pPatientId
+        Set sql = "SELECT %external(name) as name, birthdate FROM HSFHIR_X0001_S.Patient WHERE _id = "_pPatientId
 
         Set tSC = oRS.%Prepare(sql)
 
@@ -70,7 +76,7 @@ ClassMethod getOptions(pPatientId) As %Status
         Set sql = "SELECT DISTINCT "_
                   "GetProp(GetJSON(GetAtJSON(GetJSON(GetJSON(ResourceString,'code'),'coding'),0),'code'),'code') as testCode, "_
                   "GetProp(GetJSON(GetAtJSON(GetJSON(GetJSON(ResourceString,'code'),'coding'),0),'display'),'display') as testName "_
-                  "FROM HSFHIR_I0001_R.Rsrc "_ 
+                  "FROM HSFHIR_X0001_R.Rsrc "_
                   "WHERE GetProp(GetJSON(GetAtJSON(GetJSON(GetJSON(ResourceString,'category'),'code'),0),'code'),'code') = 'laboratory' "_
                   "AND GetProp(GetJSON(ResourceString,'subject'),'reference') = 'Patient/"_pPatientId_"'"_
                   "Order By GetProp(GetJSON(GetAtJSON(GetJSON(GetJSON(ResourceString,'code'),'coding'),0),'display'),'display')"
@@ -121,7 +127,7 @@ ClassMethod getLabResult(pPatientId, pLabCode) As %Status
             "GetProp(GetJSON(GetAtJSON(GetJSON(GetJSON(ResourceString,'code'),'coding'),0),'display'),'display') as testName, "_
             "GetProp(GetJSON(ResourceString,'effectiveDateTime'),'effectiveDateTime') as effectiveDateTimeValue, "_
             "GetProp(GetJSON(ResourceString,'valueQuantity'),'value') as valueQuant "_
-            "FROM HSFHIR_I0001_R.Rsrc "_
+            "FROM HSFHIR_X0001_R.Rsrc "_
             "WHERE GetProp(GetJSON(GetAtJSON(GetJSON(GetJSON(ResourceString,'category'),'code'),0),'code'),'code') = 'laboratory' "_
             "AND GetProp(GetJSON(ResourceString,'subject'),'reference') = 'Patient/"_pPatientId_"' "_
             "AND GetProp(GetJSON(GetAtJSON(GetJSON(GetJSON(ResourceString,'code'),'coding'),0),'code'),'code') = '"_pLabCode_"'"_
