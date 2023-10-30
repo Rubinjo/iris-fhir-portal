@@ -13,4 +13,4 @@ services:
     volumes:
       - ./fhirUI:/usr/irissys/csp/user/fhirUI
 #      - ~/iris.key:/usr/irissys/mgr/iris.key
-      - ./:/irisdev/app
+      - ./:/irisrun/repo
