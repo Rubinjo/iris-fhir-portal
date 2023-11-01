@@ -1,7 +1,15 @@
 ARG IMAGE=intersystemsdc/irishealth-community:latest
 FROM $IMAGE
 
+USER root
+
+RUN mkdir -p /data/fhir
+COPY /data/fhir /data/fhir
+
 WORKDIR /irisrun/repo
+
+RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /irisrun/repo
+USER ${ISC_PACKAGE_MGRUSER}
 
 ARG NAMESPACE="USER"
 

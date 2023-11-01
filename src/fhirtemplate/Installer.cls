@@ -29,7 +29,7 @@ ClassMethod Install(sourceDir As %String)
 	{
 		do $SYSTEM.Status.DisplayError(tSc)
 	}
-	set tSc = ..SetupFHIRServer(..#Namespace, ..#AppKey, ..#StrategyClass, ..#MetadataConfigKey, sourceDir + "/data/fhir")
+	set tSc = ..SetupFHIRServer(..#Namespace, ..#AppKey, ..#StrategyClass, ..#MetadataConfigKey, "/data/fhir/")
 	if $$$ISERR(tSc)
 	{
 		do $SYSTEM.Status.DisplayError(tSc)

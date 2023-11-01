@@ -12,5 +12,6 @@ services:
       - 32784:53773
     volumes:
       - ./fhirUI:/usr/irissys/csp/user/fhirUI
+      - ./fhirUI:/irisrun/repo/fhirUI
 #      - ~/iris.key:/usr/irissys/mgr/iris.key
-      - ./:/irisrun/repo
+      - ./src:/irisrun/repo/src
